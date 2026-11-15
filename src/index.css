@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens ─────────────────────────────────────────────
+   Board-slate surfaces, instrument-blue accent. Signal green and
+   signal grey are reserved for logic HIGH / LOW only.            */
+:root {
+  --bg: #f4f6f9;
+  --panel: #ffffff;
+  --panel-2: #eef2f6;
+  --panel-3: #e4e9f0;
+  --border: rgb(15 23 42 / 0.1);
+  --border-strong: rgb(15 23 42 / 0.18);
+  --fg: #0f1722;
+  --muted: #4a5565;
+  --faint: #646f7d;
+  --accent: #1769b8;
+  --accent-soft: rgb(23 105 184 / 0.1);
+  --accent-fg: #ffffff;
+  --high: #047857;
+  --high-soft: rgb(5 150 105 / 0.12);
+  --low: #8a96a6;
+  --err: #c81e1e;
+  --err-soft: rgb(220 38 38 / 0.09);
+  --warn: #a14a07;
+  --warn-soft: rgb(217 119 6 / 0.11);
+  --syn-kw: #7c3aed;
+  --syn-op: #1769b8;
+  --syn-const: #c2410c;
+  --syn-comment: #646f7d;
+  --syn-punct: #6b7686;
+  --shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --grid: rgb(15 23 42 / 0.05);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0d1219;
+  --panel: #131a24;
+  --panel-2: #18212d;
+  --panel-3: #1f2a38;
+  --border: rgb(148 163 184 / 0.13);
+  --border-strong: rgb(148 163 184 / 0.24);
+  --fg: #e6edf5;
+  --muted: #9aa7b8;
+  --faint: #7d899b;
+  --accent: #5ab4ff;
+  --accent-soft: rgb(90 180 255 / 0.12);
+  --accent-fg: #06121f;
+  --high: #34d399;
+  --high-soft: rgb(52 211 153 / 0.14);
+  --low: #5f6b7d;
+  --err: #f87171;
+  --err-soft: rgb(248 113 113 / 0.12);
+  --warn: #fbbf24;
+  --warn-soft: rgb(251 191 36 / 0.12);
+  --syn-kw: #c4a1ff;
+  --syn-op: #5ab4ff;
+  --syn-const: #f5a97f;
+  --syn-comment: #7d899b;
+  --syn-punct: #7b8798;
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  --grid: rgb(148 163 184 / 0.05);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-panel-3: var(--panel-3);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-high: var(--high);
+  --color-high-soft: var(--high-soft);
+  --color-low: var(--low);
+  --color-err: var(--err);
+  --color-err-soft: var(--err-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-syn-kw: var(--syn-kw);
+  --color-syn-op: var(--syn-op);
+  --color-syn-const: var(--syn-const);
+  --color-syn-comment: var(--syn-comment);
+  --color-syn-punct: var(--syn-punct);
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --shadow-soft: var(--shadow);
+}
+
+html, body, #root { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection { background: var(--accent-soft); }
+
+/* Thin, quiet scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+
+.panel {
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.board-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--panel-2) 0%, var(--panel-3) 50%, var(--panel-2) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.2s linear infinite;
+  border-radius: 6px;
+}
+
+/* Signal propagation pulse on wires that just changed value */
+/* The pulse waits (opacity 0) until its layer's delay, then a dash train runs along the wire and fades. */
+@keyframes wire-flow {
+  0% { opacity: 1; stroke-dashoffset: 36; }
+  75% { opacity: 1; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+.wire-pulse { opacity: 0; stroke-dasharray: 4 8; animation: wire-flow 0.55s linear forwards; }
+
+/* ── CodeMirror theme ─────────────────────────────────────────── */
+.cm-editor { height: 100%; font-size: 13.5px; background: transparent; color: var(--fg); }
+.cm-editor.cm-focused { outline: none; }
+.cm-scroller { font-family: var(--font-mono); line-height: 1.7; }
+.cm-gutters { background: transparent; border-right: 1px solid var(--border); color: var(--faint); }
+.cm-activeLineGutter { background: transparent; color: var(--fg); }
+.cm-activeLine { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.cm-cursor { border-left-color: var(--accent) !important; border-left-width: 2px !important; }
+.cm-selectionBackground, .cm-focused .cm-selectionBackground { background: var(--accent-soft) !important; }
+.cm-content { caret-color: var(--accent); padding: 12px 0; }
+.cm-line { padding: 0 14px; }
+.tok-kw { color: var(--syn-kw); font-weight: 500; }
+.tok-op { color: var(--syn-op); font-weight: 500; }
+.tok-const { color: var(--syn-const); }
+.tok-comment { color: var(--syn-comment); font-style: italic; }
+.tok-punct { color: var(--syn-punct); }
+.cm-src-highlight { background: color-mix(in srgb, var(--accent) 22%, transparent); border-radius: 3px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent); }
+.cm-lintRange-error { background-image: none !important; text-decoration: wavy underline var(--err); text-decoration-skip-ink: none; text-underline-offset: 3px; }
+.cm-lintRange-warning { background-image: none !important; text-decoration: wavy underline var(--warn); text-decoration-skip-ink: none; text-underline-offset: 3px; }
+.cm-tooltip { background: var(--panel) !important; border: 1px solid var(--border-strong) !important; border-radius: 8px; color: var(--fg); box-shadow: var(--shadow); overflow: hidden; }
+.cm-diagnostic { padding: 6px 10px; font-family: var(--font-sans); font-size: 12.5px; }
+.cm-diagnostic-error { border-left: 3px solid var(--err); }
+.cm-diagnostic-warning { border-left: 3px solid var(--warn); }
+.cm-gutter-lint { width: 14px; }
+.cm-lint-marker { width: 10px; height: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

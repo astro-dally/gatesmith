@@ -1,0 +1,8 @@
+node_modules
+dist
+deliverables
+coverage
+*.tsbuildinfo
+.vite
+test-results
+screenshots-tmp
