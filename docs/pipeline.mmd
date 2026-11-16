@@ -1,0 +1,17 @@
+flowchart TB
+  SRC["Source text"] --> LEX["1 · Lexer (lexer.ts)<br/>characters → tokens"]
+  LEX -->|"Token[]"| PAR["2 · Parser (parser.ts)<br/>tokens → AST"]
+  PAR -->|"Program AST"| SEM["3 · Semantic (semantic.ts, symbols.ts)<br/>symbol table, drivers, cycles"]
+  SEM -->|"checked AST + SymbolTable"| IR["4 · IR (ir.ts)<br/>three-address code + netlist"]
+  IR -->|"TAC"| OPT["5 · Optimizer (optimizer.ts)<br/>rewrite to a fixpoint"]
+  OPT -->|"optimised TAC + netlist"| CG["6 · Codegen"]
+  IR -.->|"original TAC (equivalence check)"| CG
+  CG --> TT["Truth table + SOP<br/>(codegen.ts)"]
+  CG --> SVG["Circuit SVG<br/>(circuit.ts)"]
+  CG --> V["Verilog<br/>(codegen.ts)"]
+  subgraph Diagnostics["Diagnostics"]
+    D[("Diagnostic[]")] --> UI["UI: problems panel, editor markers, stepper badges"]
+  end
+  LEX -.-> D
+  PAR -.-> D
+  SEM -.-> D
