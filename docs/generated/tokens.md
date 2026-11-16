@@ -1,0 +1,24 @@
+| # | Type | Lexeme | Line:Col |
+|---|---|---|---|
+| 0 | INPUT | `input` | 1:1 |
+| 1 | IDENT | `a` | 1:7 |
+| 2 | COMMA | `,` | 1:8 |
+| 3 | IDENT | `b` | 1:10 |
+| 4 | COMMA | `,` | 1:11 |
+| 5 | IDENT | `c` | 1:13 |
+| 6 | SEMI | `;` | 1:14 |
+| 7 | OUTPUT | `output` | 2:1 |
+| 8 | IDENT | `out` | 2:8 |
+| 9 | SEMI | `;` | 2:11 |
+| 10 | IDENT | `out` | 3:1 |
+| 11 | ASSIGN | `=` | 3:5 |
+| 12 | LPAREN | `(` | 3:7 |
+| 13 | IDENT | `a` | 3:8 |
+| 14 | AND | `AND` | 3:10 |
+| 15 | IDENT | `b` | 3:14 |
+| 16 | RPAREN | `)` | 3:15 |
+| 17 | OR | `OR` | 3:17 |
+| 18 | NOT | `NOT` | 3:20 |
+| 19 | IDENT | `c` | 3:24 |
+| 20 | SEMI | `;` | 3:25 |
+| 21 | EOF | (end) | 3:26 |
